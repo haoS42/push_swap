@@ -1,60 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   chunk_push.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/07 20:42:33 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/07 17:26:58 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	is_sorted(t_stack *a)
+static int	has_chunk(t_stack *a, int base, int width)
 {
 	t_node	*cur;
+	int		i;
 
-	if (a->size < 2)
-		return (1);
 	cur = a->top;
-	while (cur->next)
+	i = 0;
+	while (i < a->size)
 	{
-		if (cur->val > cur->next->val)
-			return (0);
+		if (in_chunk(cur->val, base, width))
+			return (1);
 		cur = cur->next;
+		i++;
 	}
-	return (1);
-}
-
-static void	run_morip(t_stack *a, t_stack *b)
-{
-	int	width;
-
-	index_stack(a);
-	width = chunk_width(a->size);
-	push_chunks(a, b, width);
-	pull_back(a, b);
-}
-
-int	main(int argc, char **argv)
-{
-	t_stack	a;
-	t_stack	b;
-
-	a.top = NULL;
-	a.size = 0;
-	a.name = 'a';
-	b.top = NULL;
-	b.size = 0;
-	b.name = 'b';
-	if (argc < 2)
-		return (0);
-	parse_args(&a, argc, argv);
-	if (!is_sorted(&a))
-		run_morip(&a, &b);
-	free_stack(&a);
-	free_stack(&b);
 	return (0);
+}
+
+static void	push_one(t_stack *a, t_stack *b, int base, int width)
+{
+	if (in_chunk(a->top->val, base, width))
+	{
+		op_pb(a, b);
+		if (b->top->val > base + (width / 2))
+			op_ra_rb(b);
+	}
+	else
+		rotate_shortest(a, distance_top_chunk(a, base, width));
+}
+
+void	push_chunks(t_stack *a, t_stack *b, int width)
+{
+	int	base;
+
+	base = 0;
+	while (a->size)
+	{
+		while (has_chunk(a, base, width))
+			push_one(a, b, base, width);
+		base += width;
+	}
 }

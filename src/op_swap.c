@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   op_swap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/07 15:46:44 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/07 17:24:03 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-char	*ft_strdup(const char *s)
+void	op_sa_sb(t_stack *s)
 {
-	size_t	len;
-	char	*copy;
+	t_node	*f;
+	t_node	*snd;
 
-	len = ft_strlen(s) + 1;
-	copy = (char *)malloc(len);
-	if (!copy)
-		return (NULL);
-	ft_strlcpy(copy, s, len);
-	return (copy);
+	if (s->size < 2)
+		return ;
+	f = pop_top(s);
+	snd = pop_top(s);
+	push_top(s, f);
+	push_top(s, snd);
+	if (s->name == 'a')
+		ft_putstr_fd("sa\n", 1);
+	else
+		ft_putstr_fd("sb\n", 1);
 }

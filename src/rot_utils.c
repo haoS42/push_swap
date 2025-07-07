@@ -1,35 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol_new.c                                      :+:      :+:    :+:   */
+/*   rot_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/07 16:43:55 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/07 17:20:00 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-long	ft_atol(const char *nptr)
+int	distance_top_chunk(t_stack *s, int base, int width)
 {
-	long	res;
-	int		sign;
+	t_node	*cur;
+	int		i;
 
-	res = 0;
-	sign = 1;
-	while (*nptr == ' ' || (*nptr >= '\t' && *nptr <= '\r'))
-		nptr++;
-	if (*nptr == '+' || *nptr == '-')
-		if (*nptr++ == '-')
-			sign = -1;
-	while (ft_isdigit(*nptr))
+	cur = s->top;
+	i = 0;
+	while (i < s->size && !in_chunk(cur->val, base, width))
 	{
-		if (res > LONG_MAX / 10 || (res == LONG_MAX / 10 && (*nptr
-					- '0') > LONG_MAX % 10))
-			return (sign == 1 ? LONG_MAX : LONG_MIN);
-		res = res * 10 + (*nptr++ - '0');
+		cur = cur->next;
+		i++;
 	}
-	return (res * sign);
+	return (i);
+}
+
+void	rotate_shortest(t_stack *s, int dist)
+{
+	if (dist <= s->size / 2)
+	{
+		while (dist--)
+			op_ra_rb(s);
+	}
+	else
+	{
+		dist = s->size - dist;
+		while (dist--)
+			op_rra_rrb(s);
+	}
 }

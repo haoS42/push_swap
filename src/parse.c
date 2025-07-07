@@ -6,7 +6,7 @@
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/07 15:53:51 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/07 17:19:14 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ static void	append_unique(t_stack *a, int v)
 
 void	parse_args(t_stack *a, int argc, char **argv)
 {
-	long	tmp;
 	int		i;
+	long	tmp;
 
 	i = 1;
 	while (i < argc)
 	{
-		if (!*argv[i])
+		if (!argv[i][0])
 			ps_error_exit();
 		tmp = ft_atol(argv[i]);
 		if (tmp < INT_MIN || tmp > INT_MAX)

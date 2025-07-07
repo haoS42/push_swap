@@ -6,7 +6,7 @@
 #    By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/07 15:49:50 by yossasak          #+#    #+#              #
-#    Updated: 2025/07/07 16:41:36 by yossasak         ###   ########.fr        #
+#    Updated: 2025/07/07 20:53:29 by yossasak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,15 @@ CFLAGS = -Wall -Wextra -Werror
 INCLUDES = -I ./includes
 RM = rm -f
 
-SRC =	src/main.c src/parse.c src/error.c src/stack_ops.c src/stack_utils.c src/chunk_utils.c src/morip_sort.c\
-		libft/ft_atol_new.c libft/ft_calloc.c libft/ft_isdigit.c libft/ft_memset.c libft/ft_putstr_fd.c libft/ft_split.c libft/ft_strdup.c libft/ft_strlcpy.c libft/ft_strlen.c libft/ft_strjoin.c libft/ft_strlcat.c
-
+SRC =	\
+src/main.c src/parse.c src/error.c \
+src/stack_utils.c src/stack_utils2.c \
+src/rot_utils.c src/indexing.c \
+src/chunk_push.c src/chunk_pull.c \
+src/op_swap.c src/op_push.c src/op_rotate.c \
+libft/ft_calloc.c libft/ft_atol.c \
+libft/ft_strlen.c libft/ft_putstr_fd.c libft/ft_memset.c \
+libft/ft_bzero.c libft/ft_isdigit.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)

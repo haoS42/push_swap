@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   chunk_pull..c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/07 15:46:52 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/07 17:22:23 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+static void	bring_max_top(t_stack *b)
 {
-	size_t	len1;
-	size_t	len2;
-	size_t	total_len;
-	char	*strage;
+	int	dist;
 
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	total_len = len1 + len2 + 1;
-	strage = (char *)malloc(total_len);
-	if (!strage)
-		return (NULL);
-	strage[0] = '\0';
-	ft_strlcat(strage, s1, total_len);
-	ft_strlcat(strage, s2, total_len);
-	return (strage);
+	dist = pos_max(b);
+	rotate_shortest(b, dist);
 }
 
+void	pull_back(t_stack *a, t_stack *b)
+{
+	while (b->size)
+	{
+		bring_max_top(b);
+		op_pa(a, b);
+	}
+}

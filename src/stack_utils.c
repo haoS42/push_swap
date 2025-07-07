@@ -6,7 +6,7 @@
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/07 16:13:24 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/07 17:29:53 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,77 +93,4 @@ int	distance_to_top(t_stack *s, int target)
 		i++;
 	}
 	return (i);
-}
-
-int	pos_min(t_stack *s)
-{
-	t_node	*cur;
-	int		min;
-	int		i;
-	int		pos;
-
-	cur = s->top;
-	min = cur->val;
-	pos = 0;
-	i = 0;
-	while (++i < s->size)
-	{
-		cur = cur->next;
-		if (cur->val < min)
-		{
-			min = cur->val;
-			pos = i;
-		}
-	}
-	return (pos);
-}
-
-int	pos_max(t_stack *s)
-{
-	t_node	*cur;
-	int		max;
-	int		i;
-	int		pos;
-
-	cur = s->top;
-	max = cur->val;
-	pos = 0;
-	i = 0;
-	while (++i < s->size)
-	{
-		cur = cur->next;
-		if (cur->val > max)
-		{
-			max = cur->val;
-			pos = i;
-		}
-	}
-	return (pos);
-}
-
-void	ft_sort_int_tab(int *tab, int size)
-{
-	int	i;
-	int	tmp;
-	int	sorted;
-
-	if (!tab || size < 2)
-		return ;
-	sorted = 0;
-	while (!sorted)
-	{
-		sorted = 1;
-		i = 0;
-		while (i < size - 1)
-		{
-			if (tab[i] > tab[i + 1])
-			{
-				tmp = tab[i];
-				tab[i] = tab[i + 1];
-				tab[i + 1] = tmp;
-				sorted = 0;
-			}
-			i++;
-		}
-	}
 }

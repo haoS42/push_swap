@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/07 15:46:59 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/07 20:41:38 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-size_t	ft_strlcat(char *dest, const char *src, size_t size)
+long	ft_atol(const char *nptr)
 {
-	size_t	dest_len;
-	size_t	src_len;
-	size_t	i;
+	long	res;
+	int		sign;
 
-	dest_len = 0;
-	src_len = 0;
-	i = 0;
-	while (dest[dest_len] != '\0' && dest_len < size)
-		dest_len++;
-	while (src[src_len] != '\0')
-		src_len++;
-	if (dest_len >= size)
-		return (size + src_len);
-	while ((src[i] != '\0') && (dest_len + i + 1 < size))
+	res = 0;
+	sign = 1;
+	while (*nptr == ' ' || (*nptr >= '\t' && *nptr <= '\r'))
+		nptr++;
+	if (*nptr == '+' || *nptr == '-')
+		if (*nptr++ == '-')
+			sign = -1;
+	while (ft_isdigit(*nptr))
 	{
-		dest[dest_len + i] = src[i];
-		i++;
+		if (res > LONG_MAX / 10 || (res == LONG_MAX / 10 && (*nptr
+					- '0') > LONG_MAX % 10))
+			return (sign == 1 ? LONG_MAX : LONG_MIN);
+		res = res * 10 + (*nptr++ - '0');
 	}
-	dest[dest_len + i] = '\0';
-	return (dest_len + src_len);
+	return (res * sign);
 }
