@@ -6,91 +6,79 @@
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/07 17:29:53 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/09 00:50:52 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+##include "push_swap.h"
 
-t_node	*new_node(int v)
+t_stack	*find_last(t_stack *stack)
 {
-	t_node	*n;
-
-	n = (t_node *)malloc(sizeof(t_node));
-	if (!n)
-		ps_error_exit();
-	n->val = v;
-	n->next = NULL;
-	n->prev = NULL;
-	return (n);
-}
-
-void	free_stack(t_stack *s)
-{
-	t_node	*cur;
-	t_node	*tmp;
-
-	cur = s->top;
-	while (cur && s->size--)
-	{
-		tmp = cur->next;
-		free(cur);
-		cur = tmp;
-	}
-}
-
-void	push_top(t_stack *s, t_node *n)
-{
-	if (!n)
-		return ;
-	if (!s->top)
-	{
-		n->next = n;
-		n->prev = n;
-	}
-	else
-	{
-		n->next = s->top;
-		n->prev = s->top->prev;
-		s->top->prev->next = n;
-		s->top->prev = n;
-	}
-	s->top = n;
-	s->size++;
-}
-
-t_node	*pop_top(t_stack *s)
-{
-	t_node	*n;
-
-	if (!s->top)
+	if (!stack)
 		return (NULL);
-	n = s->top;
-	if (s->size == 1)
-		s->top = NULL;
-	else
-	{
-		s->top->prev->next = s->top->next;
-		s->top->next->prev = s->top->prev;
-		s->top = s->top->next;
-	}
-	n->next = NULL;
-	n->prev = NULL;
-	s->size--;
-	return (n);
+	while (stack->next)
+		stack = stack->next;
+	return (stack);
 }
 
-int	distance_to_top(t_stack *s, int target)
+t_stack	*find_highest_node(t_stack *stack)
 {
-	t_node	*cur;
-	int		i;
+	int		max_index;
+	t_stack	*highest_node;
 
-	cur = s->top;
-	i = 0;
-	while (i < s->size && cur->val != target)
+	if (!stack)
+		return (NULL);
+	max_index = -1;
+	highest_node = NULL;
+	while (stack)
 	{
-		cur = cur->next;
-		i++;
+		if (stack->index > max_index)
+		{
+			max_index = stack->index;
+			highest_node = stack;
+		}
+		stack = stack->next;
 	}
-	return (i);
+	return (highest_node);
+}
+
+int	stack_size(t_stack *stack)
+{
+	int	size;
+
+	size = 0;
+	while (stack)
+	{
+		size++;
+		stack = stack->next;
+	}
+	return (size);
+}
+
+int	is_sorted(t_stack *stack)
+{
+	while (stack && stack->next)
+	{
+		if (stack->value > stack->next->value)
+			return (0);
+		stack = stack->next;
+	}
+	return (1);
+}
+
+void	free_stack(t_stack **stack)
+{
+	t_stack	*tmp;
+	t_stack	*current;
+
+	if (!stack)
+		return ;
+	current = *stack;
+	while (current)
+	{
+		tmp = current->next;
+		free(current);
+		current = tmp;
+	}
+	*stack = NULL;
 }

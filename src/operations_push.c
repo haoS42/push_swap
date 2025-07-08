@@ -1,29 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_push.c                                          :+:      :+:    :+:   */
+/*   operations_push.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/07 17:24:29 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/09 00:51:15 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	op_pa(t_stack *a, t_stack *b)
+static void	push(t_stack **dest, t_stack **src)
 {
-	if (b->size == 0)
+	t_stack	*node_to_push;
+
+	if (!*src)
 		return ;
-	push_top(a, pop_top(b));
-	ft_putstr_fd("pa\n", 1);
+	node_to_push = *src;
+	*src = (*src)->next;
+	if (*src)
+		(*src)->prev = NULL;
+	node_to_push->prev = NULL;
+	if (!*dest)
+	{
+		*dest = node_to_push;
+		node_to_push->next = NULL;
+	}
+	else
+	{
+		node_to_push->next = *dest;
+		(*dest)->prev = node_to_push;
+		*dest = node_to_push;
+	}
 }
 
-void	op_pb(t_stack *a, t_stack *b)
+void	pa(t_stack **a, t_stack **b)
 {
-	if (a->size == 0)
-		return ;
-	push_top(b, pop_top(a));
-	ft_putstr_fd("pb\n", 1);
+	push(a, b);
+	write(1, "pa\n", 3);
+}
+
+void	pb(t_stack **a, t_stack **b)
+{
+	push(b, a);
+	write(1, "pb\n", 3);
 }

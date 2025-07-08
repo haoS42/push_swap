@@ -6,62 +6,62 @@
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/07 20:40:36 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/09 00:01:21 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include <limits.h>
-# include <stdint.h>
 # include <stdlib.h>
 # include <unistd.h>
-
-long	ft_atol(const char *nptr);
-void	ft_bzero(void *s, size_t n);
-void	*ft_calloc(size_t nmemb, size_t size);
-int		ft_isdigit(int c);
-void	*ft_memset(void *s, int c, size_t len);
-void	ft_putstr_fd(char *s, int fd);
-int		ft_strlen(const char *str);
-
-typedef struct s_node
-{
-	int				val;
-	struct s_node	*next;
-	struct s_node	*prev;
-}	t_node;
+# include <limits.h>
 
 typedef struct s_stack
 {
-	t_node	*top;
-	int		size;
-	char	name;
+	int				value;
+	int				index;
+	int				cost_a;
+	int				cost_b;
+	struct s_stack	*next;
+	struct s_stack	*prev;
 }	t_stack;
 
-void	parse_args(t_stack *a, int argc, char **argv);
-void	ps_error_exit(void);
+void	sort_stack(t_stack **a, t_stack **b);
 
-t_node	*new_node(int v);
-void	free_stack(t_stack *s);
-void	push_top(t_stack *s, t_node *n);
-t_node	*pop_top(t_stack *s);
-int		distance_top_chunk(t_stack *s, int base, int width);
-int		pos_max(t_stack *s);
+void	init_stack_a(t_stack **a, char **argv);
+void	assign_index(t_stack *a);
 
-void	op_sa_sb(t_stack *s);
-void	op_pa(t_stack *a, t_stack *b);
-void	op_pb(t_stack *a, t_stack *b);
-void	op_ra_rb(t_stack *s);
-void	op_rra_rrb(t_stack *s);
+void	exit_error(void);
+long	ft_atol(const char *str);
+int		is_duplicate(t_stack *a, int n);
+int		is_numeric(char *str);
 
-int		chunk_width(int n);
-int		in_chunk(int v, int base, int width);
-void	index_stack(t_stack *a);
-void	rotate_shortest(t_stack *s, int dist);
+t_stack	*find_last(t_stack *stack);
+t_stack	*find_highest_node(t_stack *stack);
+int		stack_size(t_stack *stack);
+int		is_sorted(t_stack *stack);
+void	free_stack(t_stack **stack);
 
-void	push_chunks(t_stack *a, t_stack *b, int width);
-void	pull_back(t_stack *a, t_stack *b);
+void	sort_three(t_stack **a);
+
+void	turk_sort(t_stack **a, t_stack **b);
+
+void	calculate_cost(t_stack *a, t_stack *b);
+void	find_cheapest_move(t_stack **a, t_stack **b);
+void	move_to_a(t_stack **a, t_stack **b, int cost_a, int cost_b);
+int		get_target_pos(t_stack *a, int b_index);
+
+void	sa(t_stack **a);
+void	sb(t_stack **b);
+void	ss(t_stack **a, t_stack **b);
+void	pa(t_stack **a, t_stack **b);
+void	pb(t_stack **a, t_stack **b);
+void	ra(t_stack **a);
+void	rb(t_stack **b);
+void	rr(t_stack **a, t_stack **b);
+void	rra(t_stack **a);
+void	rrb(t_stack **b);
+void	rrr(t_stack **a, t_stack **b);
 
 #endif

@@ -6,54 +6,69 @@
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/07 20:42:33 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/09 00:02:47 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	is_sorted(t_stack *a)
+static void	final_rotation(t_stack **a)
 {
-	t_node	*cur;
+	int		lowest_pos;
+	int		size;
+	t_stack	*current;
 
-	if (a->size < 2)
-		return (1);
-	cur = a->top;
-	while (cur->next)
+	lowest_pos = 0;
+	size = stack_size(*a);
+	current = *a;
+	while (current)
 	{
-		if (cur->val > cur->next->val)
-			return (0);
-		cur = cur->next;
+		if (current->index == 0)
+			break ;
+		lowest_pos++;
+		current = current->next;
 	}
-	return (1);
+	if (lowest_pos > size / 2)
+	{
+		while ((*a)->index != 0)
+			rra(a);
+	}
+	else
+	{
+		while ((*a)->index != 0)
+			ra(a);
+	}
 }
 
-static void	run_morip(t_stack *a, t_stack *b)
+void	sort_stack(t_stack **a, t_stack **b)
 {
-	int	width;
+	int	size;
 
-	index_stack(a);
-	width = chunk_width(a->size);
-	push_chunks(a, b, width);
-	pull_back(a, b);
+	size = stack_size(*a);
+	if (size <= 1 || is_sorted(*a))
+		return ;
+	if (size == 2)
+		sa(a);
+	else if (size == 3)
+		sort_three(a);
+	else
+		turk_sort(a, b);
+	if (!is_sorted(*a))
+		final_rotation(a);
 }
 
 int	main(int argc, char **argv)
 {
-	t_stack	a;
-	t_stack	b;
+	t_stack	*a;
+	t_stack	*b;
 
-	a.top = NULL;
-	a.size = 0;
-	a.name = 'a';
-	b.top = NULL;
-	b.size = 0;
-	b.name = 'b';
 	if (argc < 2)
 		return (0);
-	parse_args(&a, argc, argv);
-	if (!is_sorted(&a))
-		run_morip(&a, &b);
+	a = NULL;
+	b = NULL;
+	init_stack_a(&a, argv);
+	assign_index(a);
+	sort_stack(&a, &b);
 	free_stack(&a);
 	free_stack(&b);
 	return (0);

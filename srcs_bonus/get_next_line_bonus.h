@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_rotate.c                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/07 17:24:45 by yossasak         ###   ########.fr       */
+/*   Created: 2025/03/27 04:24:03 by yossasak          #+#    #+#             */
+/*   Updated: 2025/03/27 22:00:39 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-void	op_ra_rb(t_stack *s)
-{
-	if (s->size < 2)
-		return ;
-	s->top = s->top->next;
-	if (s->name == 'a')
-		ft_putstr_fd("ra\n", 1);
-	else
-		ft_putstr_fd("rb\n", 1);
-}
+# include <stddef.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
 
-void	op_rra_rrb(t_stack *s)
-{
-	if (s->size < 2)
-		return ;
-	s->top = s->top->prev;
-	if (s->name == 'a')
-		ft_putstr_fd("rra\n", 1);
-	else
-		ft_putstr_fd("rrb\n", 1);
-}
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
+# define READ_ERROR -2
+
+char	*get_next_line(int fd);
+int		ft_strlen(const char *s);
+char	*ft_strdup(const char *s1);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strjoin(char const *s1, char const *s2);
+
+#endif
