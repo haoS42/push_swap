@@ -6,11 +6,11 @@
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/09 00:50:52 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/09 23:56:35 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-##include "push_swap.h"
+#include "../include/push_swap.h"
 
 t_stack	*find_last(t_stack *stack)
 {

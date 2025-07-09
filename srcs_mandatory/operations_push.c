@@ -1,51 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_turk.c                                        :+:      :+:    :+:   */
+/*   operations_push.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/09 00:54:13 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/09 23:56:15 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../include/push_swap.h"
 
-static void	initial_push(t_stack **a, t_stack **b)
+static void	push(t_stack **dest, t_stack **src)
 {
-	int	size;
-	int	pushed;
-	int	i;
+	t_stack	*node_to_push;
 
-	size = stack_size(*a);
-	pushed = 0;
-	i = 0;
-	while (i < size && pushed < size / 2)
+	if (!*src)
+		return ;
+	node_to_push = *src;
+	*src = (*src)->next;
+	if (*src)
+		(*src)->prev = NULL;
+	node_to_push->prev = NULL;
+	if (!*dest)
 	{
-		if ((*a)->index <= size / 2)
-		{
-			pb(a, b);
-			pushed++;
-		}
-		else
-			ra(a);
-		i++;
+		*dest = node_to_push;
+		node_to_push->next = NULL;
 	}
-	while (size - pushed > 3)
+	else
 	{
-		pb(a, b);
-		pushed++;
+		node_to_push->next = *dest;
+		(*dest)->prev = node_to_push;
+		*dest = node_to_push;
 	}
 }
 
-void	turk_sort(t_stack **a, t_stack **b)
+void	pa(t_stack **a, t_stack **b)
 {
-	initial_push(a, b);
-	sort_three(a);
-	while (*b)
-	{
-		calculate_cost(*a, *b);
-		find_cheapest_move(a, b);
-	}
+	push(a, b);
+	write(1, "pa\n", 3);
+}
+
+void	pb(t_stack **a, t_stack **b)
+{
+	push(b, a);
+	write(1, "pb\n", 3);
 }

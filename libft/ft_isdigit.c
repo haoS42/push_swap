@@ -6,11 +6,11 @@
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/07 15:46:03 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/09 23:55:33 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../include/push_swap.h"
 
 #define LINUX_TRUE 2048
 #define LINUX_FALSE 0

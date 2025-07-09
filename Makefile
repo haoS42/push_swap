@@ -6,7 +6,7 @@
 #    By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/07 15:49:50 by yossasak          #+#    #+#              #
-#    Updated: 2025/07/08 23:58:45 by yossasak         ###   ########.fr        #
+#    Updated: 2025/07/10 00:53:12 by yossasak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,10 @@ NAME_BONUS	= checker
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -I ./include
 
-LIBFT_DIR	= ./libft
-LIBFT		= $(LIBFT_DIR)/libft.a
+
+LIBFT		= libft/ft_bzero.c  libft/ft_calloc.c \
+			  libft/ft_isdigit.c  libft/ft_memset.c  libft/ft_putstr_fd.c \
+			  libft/ft_strcmp.c  libft/ft_strlen.c
 
 SRCS_MAND	= main.c init.c error.c stack_utils.c \
 			  operations_push.c operations_swap.c operations_rotate.c \

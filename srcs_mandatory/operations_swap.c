@@ -6,25 +6,48 @@
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/07 17:24:03 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/09 23:24:45 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../include/push_swap.h"
 
-void	op_sa_sb(t_stack *s)
+static void	swap(t_stack **stack)
 {
-	t_node	*f;
-	t_node	*snd;
+	t_stack	*first;
+	t_stack	*second;
 
-	if (s->size < 2)
+	if (!stack || !*stack || !(*stack)->next)
 		return ;
-	f = pop_top(s);
-	snd = pop_top(s);
-	push_top(s, f);
-	push_top(s, snd);
-	if (s->name == 'a')
-		ft_putstr_fd("sa\n", 1);
-	else
-		ft_putstr_fd("sb\n", 1);
+	first = *stack;
+	second = first->next;
+	first->next = second->next;
+	if (second->next)
+		second->next->prev = first;
+	second->next = first;
+	first->prev = second;
+	second->prev = NULL;
+	*stack = second;
+}
+
+void	sa(t_stack **a, int print_flag)
+{
+	swap(a);
+	if (print_flag)
+		write(1, "sa\n", 3);
+}
+
+void	sb(t_stack **b, int print_flag)
+{
+	swap(b);
+	if (print_flag)
+		write(1, "sb\n", 3);
+}
+
+void	ss(t_stack **a, t_stack **b, int print_flag)
+{
+	swap(a);
+	swap(b);
+	if (print_flag)
+		write(1, "ss\n", 3);
 }

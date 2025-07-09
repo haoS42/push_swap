@@ -1,35 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*   sort_turk.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/07 20:41:38 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/09 23:56:32 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../include/push_swap.h"
 
-long	ft_atol(const char *nptr)
+static void	initial_push(t_stack **a, t_stack **b)
 {
-	long	res;
-	int		sign;
+	int	size;
+	int	pushed;
+	int	i;
 
-	res = 0;
-	sign = 1;
-	while (*nptr == ' ' || (*nptr >= '\t' && *nptr <= '\r'))
-		nptr++;
-	if (*nptr == '+' || *nptr == '-')
-		if (*nptr++ == '-')
-			sign = -1;
-	while (ft_isdigit(*nptr))
+	size = stack_size(*a);
+	pushed = 0;
+	i = 0;
+	while (i < size && pushed < size / 2)
 	{
-		if (res > LONG_MAX / 10 || (res == LONG_MAX / 10 && (*nptr
-					- '0') > LONG_MAX % 10))
-			return (sign == 1 ? LONG_MAX : LONG_MIN);
-		res = res * 10 + (*nptr++ - '0');
+		if ((*a)->index <= size / 2)
+		{
+			pb(a, b);
+			pushed++;
+		}
+		else
+			ra(a);
+		i++;
 	}
-	return (res * sign);
+	while (size - pushed > 3)
+	{
+		pb(a, b);
+		pushed++;
+	}
+}
+
+void	turk_sort(t_stack **a, t_stack **b)
+{
+	initial_push(a, b);
+	sort_three(a);
+	while (*b)
+	{
+		calculate_cost(*a, *b);
+		find_cheapest_move(a, b);
+	}
 }

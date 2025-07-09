@@ -6,11 +6,11 @@
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/09 00:54:30 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/10 00:01:10 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../include/push_swap.h"
 
 int	get_target_pos(t_stack *a, int b_index)
 {
@@ -44,7 +44,6 @@ int	get_target_pos(t_stack *a, int b_index)
 	return (target_pos);
 }
 
-
 void	calculate_cost(t_stack *a, t_stack *b)
 {
 	t_stack	*current_b;
@@ -73,7 +72,6 @@ void	calculate_cost(t_stack *a, t_stack *b)
 	}
 }
 
-
 void	find_cheapest_move(t_stack **a, t_stack **b)
 {
 	t_stack	*current;
@@ -98,19 +96,49 @@ void	find_cheapest_move(t_stack **a, t_stack **b)
 	move_to_a(a, b, cost_a, cost_b);
 }
 
+static void	apply_rr(t_stack **a, t_stack **b, int *cost_a, int *cost_b)
+{
+	while (*cost_a > 0 && *cost_b > 0)
+	{
+		rr(a, b, 1);
+		(*cost_a)--;
+		(*cost_b)--;
+	}
+}
+
+static void	apply_rrr(t_stack **a, t_stack **b, int *cost_a, int *cost_b)
+{
+	while (*cost_a < 0 && *cost_b < 0)
+	{
+		rrr(a, b, 1);
+		(*cost_a)++;
+		(*cost_b)++;
+	}
+}
+
 void	move_to_a(t_stack **a, t_stack **b, int cost_a, int cost_b)
 {
-	while (cost_a > 0 && cost_b > 0)
-		{rr(a, b); cost_a--; cost_b--;}
-	while (cost_a < 0 && cost_b < 0)
-		{rrr(a, b); cost_a++; cost_b++;}
+	apply_rr(a, b, &cost_a, &cost_b);
+	apply_rrr(a, b, &cost_a, &cost_b);
 	while (cost_a > 0)
-		{ra(a); cost_a--;}
+	{
+		ra(a, 1);
+		cost_a--;
+	}
 	while (cost_a < 0)
-		{rra(a); cost_a++;}
+	{
+		rra(a, 1);
+		cost_a++;
+	}
 	while (cost_b > 0)
-		{rb(b); cost_b--;}
+	{
+		rb(b, 1);
+		cost_b--;
+	}
 	while (cost_b < 0)
-		{rrb(b); cost_b++;}
-	pa(a, b);
+	{
+		rrb(b, 1);
+		cost_b++;
+	}
+	pa(a, b, 1);
 }

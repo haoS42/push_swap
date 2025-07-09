@@ -6,7 +6,7 @@
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/09 00:01:21 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/10 00:41:07 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,16 @@ void	find_cheapest_move(t_stack **a, t_stack **b);
 void	move_to_a(t_stack **a, t_stack **b, int cost_a, int cost_b);
 int		get_target_pos(t_stack *a, int b_index);
 
-void	sa(t_stack **a);
-void	sb(t_stack **b);
-void	ss(t_stack **a, t_stack **b);
-void	pa(t_stack **a, t_stack **b);
-void	pb(t_stack **a, t_stack **b);
-void	ra(t_stack **a);
-void	rb(t_stack **b);
-void	rr(t_stack **a, t_stack **b);
-void	rra(t_stack **a);
-void	rrb(t_stack **b);
-void	rrr(t_stack **a, t_stack **b);
+void    sa(t_stack **a, int print_flag);
+void    sb(t_stack **b, int print_flag);
+void    ss(t_stack **a, t_stack **b, int print_flag);
+void	pa(t_stack **a, t_stack **b, int print_flag);
+void	pb(t_stack **a, t_stack **b, int print_flag);
+void	ra(t_stack **a, int print_flag);
+void	rb(t_stack **b, int print_flag);
+void	rr(t_stack **a, t_stack **b, int print_flag);
+void	rra(t_stack **a, int print_flag);
+void	rrb(t_stack **b, int print_flag);
+void	rrr(t_stack **a, t_stack **b, int print_flag);
 
 #endif
