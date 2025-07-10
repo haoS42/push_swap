@@ -6,7 +6,7 @@
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/10 23:22:24 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/11 01:40:44 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
+# include "../libft/libft.h"
 
 typedef struct s_stack
 {
@@ -26,6 +27,8 @@ typedef struct s_stack
 	struct s_stack	*next;
 	struct s_stack	*prev;
 }	t_stack;
+
+
 
 void	sort_stack(t_stack **a, t_stack **b);
 

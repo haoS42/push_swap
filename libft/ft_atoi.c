@@ -1,27 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 02:14:47 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/11 01:38:30 by yossasak         ###   ########.fr       */
+/*   Updated: 2024/12/02 01:30:17 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+static int	ft_isblank(int c)
 {
-	size_t			i;
-	unsigned char	*ptr;
+	return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
+		|| c == '\r');
+}
 
+int	ft_atoi(const char *nptr)
+{
+	long	n;
+	int		plus;
+	size_t	i;
+
+	n = 0;
+	plus = 1;
 	i = 0;
-	ptr = (unsigned char *)s;
-	while (i < n)
+	while (ft_isblank(nptr[i]))
+		i++;
+	if (nptr[i] == '+' || nptr[i] == '-')
 	{
-		ptr[i] = 0;
+		if (nptr[i] == '-')
+			plus *= -1;
 		i++;
 	}
+	while (ft_isdigit(nptr[i]))
+	{
+		if (plus == 1 && (LONG_MAX / 10 <= n && '8' <= nptr[i]))
+			return ((int)LONG_MAX);
+		if (plus == -1 && (LONG_MAX / 10 <= n && '9' <= nptr[i]))
+			return ((int)LONG_MIN);
+		n = n * 10 + (nptr[i] - '0');
+		i++;
+	}
+	return ((int)(plus * n));
 }

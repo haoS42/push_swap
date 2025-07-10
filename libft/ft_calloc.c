@@ -6,11 +6,11 @@
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/09 23:55:29 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/11 01:38:36 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/push_swap.h"
+#include "libft.h"
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {

@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/11 01:38:51 by yossasak         ###   ########.fr       */
+/*   Created: 2024/10/26 02:14:47 by yossasak          #+#    #+#             */
+/*   Updated: 2024/12/01 19:31:26 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	if (!s)
-		return ;
-	while (*s)
+	size_t	i;
+	size_t	j;
+
+	if (!(*little))
+		return ((char *)big);
+	i = 0;
+	while (i < len && big[i] != '\0')
 	{
-		write(fd, s, ft_strlen(s));
-		s++;
+		j = 0;
+		while (i + j < len && big[i + j] == little[j] && little[j] != '\0')
+			j++;
+		if (little[j] == '\0')
+			return ((char *)big + i);
+		i++;
 	}
+	return (NULL);
 }

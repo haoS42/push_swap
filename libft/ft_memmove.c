@@ -1,24 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/11 01:38:51 by yossasak         ###   ########.fr       */
+/*   Created: 2024/10/26 02:14:47 by yossasak          #+#    #+#             */
+/*   Updated: 2024/12/01 22:30:40 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	if (!s)
-		return ;
-	while (*s)
+	size_t			i;
+	unsigned char	*d;
+	unsigned char	*s;
+
+	i = 0;
+	d = (unsigned char *)dest;
+	s = (unsigned char *)src;
+	if (!d && !s)
+		return (dest);
+	if (d > s)
+		while (n-- > 0)
+			d[n] = s[n];
+	else
 	{
-		write(fd, s, ft_strlen(s));
-		s++;
+		while (i < n)
+		{
+			d[i] = s[i];
+			i++;
+		}
 	}
+	return ((void *)d);
 }

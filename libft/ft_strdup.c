@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/11 01:38:51 by yossasak         ###   ########.fr       */
+/*   Created: 2024/10/26 02:14:47 by yossasak          #+#    #+#             */
+/*   Updated: 2024/12/01 19:32:39 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+char	*ft_strdup(const char *string)
 {
-	if (!s)
-		return ;
-	while (*s)
+	char	*ptr;
+	int		i;
+
+	i = 0;
+	ptr = (char *)malloc(sizeof(char) * (ft_strlen(string) + 1));
+	if (!ptr)
+		return (ptr);
+	while (string[i])
 	{
-		write(fd, s, ft_strlen(s));
-		s++;
+		ptr[i] = string[i];
+		i++;
 	}
+	ptr[i] = 0;
+	return (ptr);
 }

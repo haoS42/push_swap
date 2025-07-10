@@ -1,24 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/11 01:38:51 by yossasak         ###   ########.fr       */
+/*   Created: 2024/10/26 02:14:47 by yossasak          #+#    #+#             */
+/*   Updated: 2024/12/01 23:10:59 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+char	*ft_strchr(const char *s, int c)
 {
-	if (!s)
-		return ;
-	while (*s)
+	char	*str;
+	char	target;
+
+	target = (char)c;
+	str = (char *)s;
+	while (*str != target)
 	{
-		write(fd, s, ft_strlen(s));
-		s++;
+		if (!(*str))
+			return (NULL);
+		str++;
 	}
+	return (str);
 }
+
+// #include "<stdio.h>"
+
+// int main(void)
+// {
+// 	char	*s;
+
+// 	s = "libfttest";
+// 	printf("a %d\n", 'l' + 256);
+// 	printf("\nft_strchr %s\n", ft_strchr(s, 'l' + 256));
+// 	printf("\nstrchr %s\n", strchr(s, 'l' + 256));
+// 	return (0);
+// }

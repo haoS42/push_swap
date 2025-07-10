@@ -6,18 +6,18 @@
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/09 23:55:54 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/11 02:29:30 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/push_swap.h"
+#include "libft.h"
 
-int	ft_strlen(const char *str)
+size_t	ft_strlen(const char *s)
 {
 	int	len;
 
 	len = 0;
-	while (str[len] != '\0')
+	while (s[len] != '\0')
 	{
 		len++;
 	}

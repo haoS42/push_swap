@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   isalpha.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/11 01:38:51 by yossasak         ###   ########.fr       */
+/*   Created: 2024/10/26 02:14:47 by yossasak          #+#    #+#             */
+/*   Updated: 2024/11/14 15:21:28 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int	ft_isalpha(int c)
 {
-	if (!s)
-		return ;
-	while (*s)
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
 	{
-		write(fd, s, ft_strlen(s));
-		s++;
+		return (1);
+	}
+	else
+	{
+		return (0);
 	}
 }
+
+// int	main(void)
+// {
+// 	int	c;
+
+// 	c = 3;
+// 	ft_isalpha(c);
+// 	return (0);
+// }
