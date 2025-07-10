@@ -6,54 +6,67 @@
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/10 23:47:07 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/11 04:05:22 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-static int	find_next_greater(t_stack *a, int b_index, int *target_idx)
+static int	find_next_greater_pos(t_stack *a, int b_index)
 {
-	t_stack	*cur;
+	int		pos;
 	int		target_pos;
+	int		target_idx;
+	t_stack	*cur;
 
-	cur = a;
+	pos = 0;
 	target_pos = -1;
+	target_idx = INT_MAX;
+	cur = a;
 	while (cur)
 	{
-		if (cur->index > b_index && cur->index < *target_idx)
+		if (cur->index > b_index && cur->index < target_idx)
 		{
-			*target_idx = cur->index;
-			target_pos = cur->index;
+			target_idx = cur->index;
+			target_pos = pos;
 		}
 		cur = cur->next;
+		pos++;
 	}
 	return (target_pos);
 }
 
-static int	find_smallest(t_stack *a, int *target_idx)
+static int	find_smallest_pos(t_stack *a)
 {
+	int		pos;
+	int		target_pos;
+	int		min_idx;
 	t_stack	*cur;
 
+	pos = 0;
+	target_pos = -1;
+	min_idx = INT_MAX;
 	cur = a;
 	while (cur)
 	{
-		if (cur->index < *target_idx)
-			*target_idx = cur->index;
+		if (cur->index < min_idx)
+		{
+			min_idx = cur->index;
+			target_pos = pos;
+		}
 		cur = cur->next;
+		pos++;
 	}
-	return (*target_idx);
+	return (target_pos);
 }
 
 int	get_target_pos(t_stack *a, int b_index)
 {
-	int	target_idx;
 	int	target_pos;
 
-	target_idx = INT_MAX;
-	target_pos = find_next_greater(a, b_index, &target_idx);
+	target_pos = find_next_greater_pos(a, b_index);
 	if (target_pos == -1)
-		target_pos = find_smallest(a, &target_idx);
+		target_pos = find_smallest_pos(a);
 	return (target_pos);
 }
 

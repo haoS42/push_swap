@@ -6,7 +6,7 @@
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/11 01:42:44 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/11 04:01:32 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	move_to_a(t_stack **a, t_stack **b, int cost_a, int cost_b)
 {
 	apply_rr(a, b, &cost_a, &cost_b);
 	apply_rrr(a, b, &cost_a, &cost_b);
-	
 	while (cost_a > 0)
 	{
 		ra(a);
