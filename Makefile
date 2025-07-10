@@ -6,55 +6,36 @@
 #    By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/07 15:49:50 by yossasak          #+#    #+#              #
-#    Updated: 2025/07/10 00:53:12 by yossasak         ###   ########.fr        #
+#    Updated: 2025/07/11 00:10:47 by yossasak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= push_swap
 NAME_BONUS	= checker
-
 CC			= cc
+
 CFLAGS		= -Wall -Wextra -Werror -I ./include
 
+BONUS_CFLAGS= $(CFLAGS) -DBONUS_PART
 
-LIBFT		= libft/ft_bzero.c  libft/ft_calloc.c \
-			  libft/ft_isdigit.c  libft/ft_memset.c  libft/ft_putstr_fd.c \
-			  libft/ft_strcmp.c  libft/ft_strlen.c
+SRCS_MAND	= srcs_mandatory/main.c srcs_mandatory/init.c ... srcs_mandatory/operations_swap.c
+SRCS_BONUS	= srcs_bonus/checker_bonus.c srcs_bonus/init.c ... srcs_bonus/operations_swap.c
 
-SRCS_MAND	= main.c init.c error.c stack_utils.c \
-			  operations_push.c operations_swap.c operations_rotate.c \
-			  operations_rev_rotate.c sort_simple.c sort_turk.c sort_turk_utils.c
-SRCS_MAND_PATH = $(addprefix srcs_mandatory/, $(SRCS_MAND))
-
-SRCS_BONUS	= checker_bonus.c init.c error.c stack_utils.c \
-			  operations_push.c operations_swap.c operations_rotate.c \
-			  operations_rev_rotate.c get_next_line_bonus.c get_next_line_utils_bonus.c
-SRCS_BONUS_PATH = $(addprefix srcs_bonus/, $(SRCS_BONUS))
-
-OBJS_MAND	= $(SRCS_MAND_PATH:.c=.o)
-OBJS_BONUS	= $(SRCS_BONUS_PATH:.c=.o)
+OBJS_MAND	= $(SRCS_MAND:.c=.o)
+OBJS_BONUS	= $(SRCS_BONUS:.c=.o)
 
 all:		$(NAME)
 
-$(NAME):	$(OBJS_MAND) $(LIBFT)
-			$(CC) $(CFLAGS) $(OBJS_MAND) $(LIBFT) -o $(NAME)
+$(NAME):	$(OBJS_MAND)
+			$(CC) $(CFLAGS) $(OBJS_MAND) -o $(NAME)
 
 bonus:		$(NAME_BONUS)
 
-$(NAME_BONUS): $(OBJS_BONUS) $(LIBFT)
-			$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIBFT) -o $(NAME_BONUS)
+$(NAME_BONUS): $(OBJS_BONUS)
+			$(CC) $(BONUS_CFLAGS) $(OBJS_BONUS) -o $(NAME_BONUS)
 
-$(LIBFT):
-			make -C $(LIBFT_DIR)
+srcs/main.o: srcs/main.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
-clean:
-			make -C $(LIBFT_DIR) clean
-			rm -f $(OBJS_MAND) $(OBJS_BONUS)
-
-fclean:		clean
-			make -C $(LIBFT_DIR) fclean
-			rm -f $(NAME) $(NAME_BONUS)
-
-re:			fclean all
-
-.PHONY:		all clean fclean re bonus
+srcs/checker_bonus.o: srcs/checker_bonus.c
+	$(CC) $(BONUS_CFLAGS) -c $< -o $@

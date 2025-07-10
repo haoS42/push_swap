@@ -6,7 +6,7 @@
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/09 23:56:18 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/10 23:23:35 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,21 @@ static void	reverse_rotate(t_stack **stack)
 	*stack = last;
 }
 
-void	rra(t_stack **a, int print_flag)
+void	rra(t_stack **a)
 {
 	reverse_rotate(a);
-	if (print_flag)
-		write(1, "rra\n", 3);
+	print_op("rra\n");
 }
 
-void	rrb(t_stack **b, int print_flag)
+void	rrb(t_stack **b)
 {
 	reverse_rotate(b);
-	if (print_flag)
-		write(1, "rrb\n", 3);
+	print_op("rrb\n");
 }
 
-void	rrr(t_stack **a, t_stack **b, int print_flag)
+void	rrr(t_stack **a, t_stack **b)
 {
 	reverse_rotate(a);
 	reverse_rotate(b);
-	if (print_flag)
-		write(1, "rrr\n", 3);
+	print_op("rrr\n");
 }

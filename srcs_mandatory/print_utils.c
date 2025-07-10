@@ -1,49 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   operations_push.c                                  :+:      :+:    :+:   */
+/*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/10 23:22:53 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/10 23:19:53 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-static void	push(t_stack **dest, t_stack **src)
-{
-	t_stack	*node_to_push;
+#ifndef BONUS_PART
 
-	if (!*src)
-		return ;
-	node_to_push = *src;
-	*src = (*src)->next;
-	if (*src)
-		(*src)->prev = NULL;
-	node_to_push->prev = NULL;
-	if (!*dest)
-	{
-		*dest = node_to_push;
-		node_to_push->next = NULL;
-	}
-	else
-	{
-		node_to_push->next = *dest;
-		(*dest)->prev = node_to_push;
-		*dest = node_to_push;
-	}
+void	print_op(const char *op)
+{
+	write(1, op, ft_strlen(op));
 }
 
-void	pa(t_stack **a, t_stack **b)
+#endif
+
+#ifdef BONUS_PART
+
+void	print_op(const char *op)
 {
-	push(a, b);
-	print_op("pa\n");
+	(void)op;
 }
 
-void	pb(t_stack **a, t_stack **b)
-{
-	push(b, a);
-	print_op("pb\n");
-}
+#endif

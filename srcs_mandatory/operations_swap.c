@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_swap.c                                          :+:      :+:    :+:   */
+/*   operations_swap.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/09 23:24:45 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/10 23:24:41 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,21 @@ static void	swap(t_stack **stack)
 	*stack = second;
 }
 
-void	sa(t_stack **a, int print_flag)
+void	sa(t_stack **a)
 {
 	swap(a);
-	if (print_flag)
-		write(1, "sa\n", 3);
+	print_op("sa\n");
 }
 
-void	sb(t_stack **b, int print_flag)
+void	sb(t_stack **b)
 {
 	swap(b);
-	if (print_flag)
-		write(1, "sb\n", 3);
+	print_op("sb\n");
 }
 
-void	ss(t_stack **a, t_stack **b, int print_flag)
+void	ss(t_stack **a, t_stack **b)
 {
 	swap(a);
 	swap(b);
-	if (print_flag)
-		write(1, "ss\n", 3);
+	print_op("ss\n");
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   operation_rotate.c                                 :+:      :+:    :+:   */
+/*   operations_rotate.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/09 23:56:11 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/10 23:24:05 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,18 @@ static void	rotate(t_stack **stack)
 void	ra(t_stack **a)
 {
 	rotate(a);
-	write(1, "ra\n", 3);
+	print_op("ra\n");
 }
 
 void	rb(t_stack **b)
 {
 	rotate(b);
-	write(1, "rb\n", 3);
+	print_op("rb\n");
 }
 
 void	rr(t_stack **a, t_stack **b)
 {
 	rotate(a);
 	rotate(b);
-	write(1, "rr\n", 3);
+	print_op("rr\n");
 }

@@ -6,41 +6,54 @@
 /*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 23:50:03 by yossasak          #+#    #+#             */
-/*   Updated: 2025/07/10 00:01:10 by yossasak         ###   ########.fr       */
+/*   Updated: 2025/07/10 23:47:07 by yossasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-int	get_target_pos(t_stack *a, int b_index)
+static int	find_next_greater(t_stack *a, int b_index, int *target_idx)
 {
-	t_stack	*current_a;
-	int		target_idx;
+	t_stack	*cur;
 	int		target_pos;
 
-	target_idx = INT_MAX;
+	cur = a;
 	target_pos = -1;
-	current_a = a;
-	while (current_a)
+	while (cur)
 	{
-		if (current_a->index > b_index && current_a->index < target_idx)
+		if (cur->index > b_index && cur->index < *target_idx)
 		{
-			target_idx = current_a->index;
-			target_pos = current_a->index;
+			*target_idx = cur->index;
+			target_pos = cur->index;
 		}
-		current_a = current_a->next;
+		cur = cur->next;
 	}
+	return (target_pos);
+}
+
+static int	find_smallest(t_stack *a, int *target_idx)
+{
+	t_stack	*cur;
+
+	cur = a;
+	while (cur)
+	{
+		if (cur->index < *target_idx)
+			*target_idx = cur->index;
+		cur = cur->next;
+	}
+	return (*target_idx);
+}
+
+int	get_target_pos(t_stack *a, int b_index)
+{
+	int	target_idx;
+	int	target_pos;
+
+	target_idx = INT_MAX;
+	target_pos = find_next_greater(a, b_index, &target_idx);
 	if (target_pos == -1)
-	{
-		current_a = a;
-		while (current_a)
-		{
-			if (current_a->index < target_idx)
-				target_idx = current_a->index;
-			current_a = current_a->next;
-		}
-		target_pos = target_idx;
-	}
+		target_pos = find_smallest(a, &target_idx);
 	return (target_pos);
 }
 
@@ -94,51 +107,4 @@ void	find_cheapest_move(t_stack **a, t_stack **b)
 		current = current->next;
 	}
 	move_to_a(a, b, cost_a, cost_b);
-}
-
-static void	apply_rr(t_stack **a, t_stack **b, int *cost_a, int *cost_b)
-{
-	while (*cost_a > 0 && *cost_b > 0)
-	{
-		rr(a, b, 1);
-		(*cost_a)--;
-		(*cost_b)--;
-	}
-}
-
-static void	apply_rrr(t_stack **a, t_stack **b, int *cost_a, int *cost_b)
-{
-	while (*cost_a < 0 && *cost_b < 0)
-	{
-		rrr(a, b, 1);
-		(*cost_a)++;
-		(*cost_b)++;
-	}
-}
-
-void	move_to_a(t_stack **a, t_stack **b, int cost_a, int cost_b)
-{
-	apply_rr(a, b, &cost_a, &cost_b);
-	apply_rrr(a, b, &cost_a, &cost_b);
-	while (cost_a > 0)
-	{
-		ra(a, 1);
-		cost_a--;
-	}
-	while (cost_a < 0)
-	{
-		rra(a, 1);
-		cost_a++;
-	}
-	while (cost_b > 0)
-	{
-		rb(b, 1);
-		cost_b--;
-	}
-	while (cost_b < 0)
-	{
-		rrb(b, 1);
-		cost_b++;
-	}
-	pa(a, b, 1);
 }
